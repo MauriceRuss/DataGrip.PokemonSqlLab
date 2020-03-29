@@ -4,10 +4,10 @@ from pokemons
 join types on pokemons.primary_type = types.id;
 
 #What is Rufflet's secondary type?
-SELECT pokemons.name, types.name AS "Secondary Type"
-FROM pokemons
-INNER JOIN types ON pokemons.secondary_type = types.id
-WHERE pokemons.name = 'Rufflet';
+select pokemons.name, types.name as "Secondary Type"
+from pokemons
+join types on pokemons.secondary_type = types.id
+where pokemons.name = 'Rufflet';
 
 #What are the names of the pokemon that belong to the trainer with trainerID 303?
 select pokemon_trainer.trainerID,trainers.trainername, GROUP_CONCAT(pokemons.name)
@@ -30,13 +30,13 @@ join types on pokemons.primary_type = types.id
 group by pokemons.primary_type;
 
 #How many pokemon at level 100 does each trainer with at least one level 100 pokemone have? (Hint: your query should not display a trainer
-SELECT COUNT(pokelevel) AS Pokemon_at_100Level
-FROM pokemon_trainer
-WHERE pokelevel = 100
-GROUP BY trainerID;
+select count(pokelevel) as Pokemon_at_100Level
+from pokemon_trainer
+where pokelevel = 100
+group by trainerID;
 
 #How many pokemon only belong to one trainer and no other?
-SELECT SUM(total) FROM (SELECT COUNT(DISTINCT trainerID)
-AS total FROM pokemon_trainer
-GROUP BY pokemon_id
-HAVING COUNT(*)=1)as x;
+select sum(total) from (select count(distinct trainerID)
+as total from pokemon_trainer
+group by pokemon_id
+having count(*)=1)as x;
